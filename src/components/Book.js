@@ -8,7 +8,7 @@ const bookCoverStyle = {
 }
 
 const Book = ({ book, onChangeShelf }) => {
-  let smallThumbnailUrl
+  let thumbnail
   const {
     imageLinks,
     title,
@@ -16,11 +16,11 @@ const Book = ({ book, onChangeShelf }) => {
   } = book
   const authorsJoined = Array.isArray(authors) ? authors.join(', ') : '../icons/no-cover.jpg'
 
-  smallThumbnailUrl = imageLinks
-    ? `url(${imageLinks.smallThumbnail})`
+  thumbnail = imageLinks
+    ? `url(${imageLinks.thumbnail})`
     : `url(${require('../icons/no-cover.jpg')})`
 
-  bookCoverStyle.backgroundImage = smallThumbnailUrl
+  bookCoverStyle.backgroundImage = thumbnail
 
   return (
     <li>

@@ -38,7 +38,7 @@ class SearchBar extends Component {
             results[index] = foundBookIndex >= 0 ? books[foundBookIndex] : result
           })
         }
-        console.log(value, results)
+
         this.setState({ results })
       })
     }

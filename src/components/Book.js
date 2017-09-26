@@ -14,8 +14,8 @@ const Book = ({ book, onChangeShelf }) => {
     title,
     authors,
   } = book
-  const authorsJoined = Array.isArray(authors) ? authors.join(', ') : '../icons/no-cover.jpg'
-
+  const authorsJoined = Array.isArray(authors) ? authors.join(', ') : 'Unknown Author'
+  
   thumbnail = imageLinks
     ? `url(${imageLinks.thumbnail})`
     : `url(${require('../icons/no-cover.jpg')})`

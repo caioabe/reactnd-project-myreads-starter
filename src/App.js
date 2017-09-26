@@ -13,7 +13,6 @@ class BooksApp extends React.Component {
 
     this.state = {
       books: [],
-      showSearchPage: false
     }
 
     this.onChangeShelf = this.onChangeShelf.bind(this)
@@ -24,17 +23,12 @@ class BooksApp extends React.Component {
     BooksAPI
       .update(book, shelf)
       .then(() => {
-        if (book.shelf === 'none') {
-          this.setState(prevState => ({
-            books: prevState.books.filter(b => (b.id !== book.id))
-          }))
-        } else {
-          BooksAPI
-            .getAll()
-            .then((response) => {
-              this.setState({ books: response })
-            })
-        }
+        this.setState(prevState => {
+          const list = prevState.books.filter(b => (b.id !== book.id))
+          book.shelf = shelf
+
+          return { books: [...list, book] }
+        })
       })
   }
   

@@ -17,9 +17,7 @@ class SearchBar extends Component {
   }
 
   componentDidMount() {
-    const el = document.querySelector('.search-books-input-wrapper input')
-
-    el.focus()
+    this.textInput.focus();
   }
 
   handleChange(e) {
@@ -58,6 +56,7 @@ class SearchBar extends Component {
                   type="text"
                   onChange={this.handleChange}
                   placeholder="Search by title or author"
+                  ref={(input) => { this.textInput = input }}
                 />
               </Debounce>
             </div>

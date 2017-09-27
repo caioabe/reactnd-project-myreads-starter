@@ -1,9 +1,10 @@
 import React from 'react'
-import { Route, Link } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 
 import * as BooksAPI from './BooksAPI'
 import SearchBar from './components/SearchBar'
 import BookShelf from './components/BookShelf';
+import BooksShelves from './components/BooksShelves'
 import './App.css'
 import { shelfKeys, shelfTitles } from './shelves.js'
 
@@ -31,40 +32,22 @@ class BooksApp extends React.Component {
         })
       })
   }
-  
-  booksSelector() {
-    const selectedBooks = []
-
-    shelfKeys.forEach((key, i) => {
-      selectedBooks[i] = this.state.books.filter(b => b.shelf === shelfKeys[i])
-    })
-
-    return selectedBooks
-  }
 
   renderBookList() {
-    const selectedBooks = this.booksSelector()
-    const shelves = shelfKeys.map((shelf, index) => (
-      <div key={shelf}>
-        <BookShelf
-          title={shelfTitles[index]}
-          books={selectedBooks[index]}
-          onChangeShelf={this.onChangeShelf}
-        />
-        <div className="open-search">
-          <Link to="/search">Add a book</Link>
-        </div>
-      </div>
-    ))
+    const selectedBooks = shelfKeys.reduce((acc, shelfKey) => {
+      acc[shelfKey] = this.state.books.filter(b => b.shelf === shelfKey)
 
-    return (
-      <div>
-        <div className="list-books-title"><h1>MyReads</h1></div>
-        <div>
-          {shelves}
-        </div>
-      </div>
-    )
+      return acc
+    }, {})
+
+    return shelfKeys.map((shelfKey, index) => (
+      <BookShelf
+        key={shelfKey}
+        title={shelfTitles[index]}
+        books={selectedBooks[shelfKey]}
+        onChangeShelf={this.onChangeShelf}
+      />
+    ))
   }
 
   onSearch(query) {
@@ -82,7 +65,12 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        <Route exact path='/' render={this.renderBookList} />
+        <Route exact path='/' render={() => (
+          <BooksShelves>
+            { this.renderBookList() }
+          </BooksShelves>
+          )}
+        />
         <Route path='/search' render={() => (
           <SearchBar
             books={this.state.books}

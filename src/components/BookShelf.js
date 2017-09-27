@@ -2,13 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import Book from './Book'
 
-const BookShelf = (props) => {
-  const {
-    title,
-    books,
-    onChangeShelf
-  } = props
-
+const BookShelf = ({ title, books, onChangeShelf }) => {
   return (
     <div className="bookshelf">
       {title && (

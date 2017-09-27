@@ -40,7 +40,8 @@ const Book = ({ book, onChangeShelf }) => {
 }
 
 Book.propTypes = {
-  book: PropTypes.object
+  book: PropTypes.object,
+  onChangeShelf: PropTypes.func
 }
 
 Book.defaultProps = {

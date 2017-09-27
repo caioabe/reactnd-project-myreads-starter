@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { Debounce } from 'react-throttle'
 
@@ -75,6 +76,15 @@ class SearchBar extends Component {
       </div>
     )
   }
+}
+
+SearchBar.propTypes = {
+  onSearch: PropTypes.func,
+  books: PropTypes.arrayOf(PropTypes.object),
+}
+
+SearchBar.defaultProps = {
+  book: [{}],
 }
 
 export default SearchBar
